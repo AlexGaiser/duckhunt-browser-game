@@ -1,54 +1,69 @@
-$(function() {
-  // I'll do some of the work for you, first I will grab the <body></body>
-  const $body = $('body');
+jQuery(function() {
+  // const game_start = new Audio('audio/start-round.mp3');
+  // game_start.play();
 
-  // 1. Create a <div> with the class "duck" and add it to the body.
- 
-  // 2. Next, use setInterval to toggle the "flap" class on the duck every 250 ms (1/4 second)
- 
-  // 3. Fantastic!  Now, let's move the duck using CSS "top" and "left". Create
-  // a function `moveDuck` that takes a duck object as an argument and sets the
-  // "top" and "left" CSS properties.
-  // HINT: Use Math.random() * window.innerWidth    for "left"
-  //       And Math.random() * window.innerHeight   for "top"
-  
-  // 4. Try making the duck move to a different location every second
- 
-  // 5. Congratulations! Move on to part 2!
+  // 6. Defines a createDuck function that returns a duck
+  function createDuck() {
+    const duck = document.createElement('div');
+    duck.classList.add('duck');
+    document.body.append(duck);
 
-  // ---------------------------- PART 2 ---------------------------------
+    // 2. Toggles the "flap" class on the duck every 250 ms (1/4 second)
+    setInterval(function() {
+      duck.classList.toggle('flap');
+    }, 250);
 
-  // 6. Things are getting a bit messy. Let's create
-  //    a "function" called createDuck() that does everything in 1-4
-  //    and "returns" the duck object
+    // 8a. Moves the newly created duck to a random location
+    duck.style.top = `${Math.random() * window.innerHeight}px`;
+    duck.style.left = `${Math.random() * window.innerWidth}px`;
 
-  // 7. Now, let's create lots of ducks!  Use a "for" loop to create 5 ducks
-  //    using our fancy new createDuck() function
+    // 8b. Moves the duck to a new location after 1 second
+    // 9. Ducks keep moving by using setInterval instead of setTimeout
+    setInterval(function() {
+      duck.style.top = `${Math.random() * window.innerHeight}px`;
+      duck.style.left = `${Math.random() * window.innerWidth}px`;
+    }, 2000);
 
+    // --------------------------- PART 3 ------------------------------------
 
-  // 8. Uh oh, our ducks are overlapping.  Modify createDuck so each time
-  //     it creates a duck, it appears in a random location
-  // HINT: You may want to create a `randomPosition()` function that you can use
-  //       to set the ducks' initial locations and in your `moveDuck()` function;
+    // 11. BOOM. Attach a "click" handler that adds the "shot" class to
+    //     the duck when you click on it!
 
-  // 9. Keep going! Move onto part 3!
+    duck.addEventListener('click', function(event) {
+      event.target.classList.add('shot');
 
-  // --------------------------- PART 3 ------------------------------------
+      setTimeout(function() {
+        // https://dzone.com/articles/removing-element-plain
+        duck.parentNode.removeChild(duck);
+        checkForWinner();
+      }, 1000);
+    });
 
-  // 11. BOOM. Attach a "click" handler that adds the "shot" class to
-  //     the duck when you click on it!
-
-  // 12. After a duck has been clicked on, remove it from the DOM after
-  //     a short delay (1 second)
-
+    return duck;
+  }
   // 13. Create a new function named checkForWinner() that reads the DOM
   //     to see if there are any ducks left. If not, alert "YOU WIN!"
+
+  function checkForWinner() {
+    const ducks = document.querySelectorAll('.duck');
+
+    console.log(ducks, ducks.length);
+
+    if (ducks.length === 0) {
+      alert('You Win!');
+    }
+  }
 
   // 14. BONUS: The ducks are moving pretty erratically, can you think
   //     of a way to adjust the ducks speed based on how far needs to move?
 
   // 15. BONUS: Add the "left" and "right" class to the duck based on the
-  //     direction the duck is flying
+  //     direction the duck is flying and shift the direction the duck is facing
+
+  // 7. Creates 5 ducks
+  for (let i = 0; i < 5; i++) {
+    createDuck();
+  }
 
   // FIN. You win 1 trillion tokens.  Play the day away!
 });
