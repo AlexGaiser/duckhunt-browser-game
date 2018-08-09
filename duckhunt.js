@@ -1,4 +1,4 @@
-jQuery(function() {
+window.onload = function() {
   // const game_start = new Audio('audio/start-round.mp3');
   // game_start.play();
 
@@ -66,4 +66,4 @@ jQuery(function() {
   }
 
   // FIN. You win 1 trillion tokens.  Play the day away!
-});
+};
