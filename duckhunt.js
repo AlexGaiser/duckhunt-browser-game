@@ -31,8 +31,8 @@ function moveDuck(duck){
     duckLeft = Math.random() * window.innerWidth
     duckTop = Math.random() * window.innerHeight
 
-    duck.style.left = duckLeft.toString() + "px"
-    duck.style.top = duckTop.toString() + "px"
+    duck.style.left = duckLeft.toString() + "px";
+    duck.style.top = duckTop.toString() + "px";
     if (duckLeft >= window.innerWidth /2){
       duck.classList.add("left")
       duck.classList.remove("right")
@@ -42,6 +42,7 @@ function moveDuck(duck){
       duck.classList.remove("left")
     }
  }
+ // moveDuck();
 
 
   // 4. Try making the duck move to a different location every second (what did we use to do this several lines up??)
@@ -58,6 +59,8 @@ function randomLocation(duck){
   duck.style.left = startNum.toString()+"px"
   duck.style.top = (window.innerHeight)+ "px"
 }
+document.createElement('a')
+
 
 function createDuck(){
   newDuck = document.createElement('div')
@@ -66,20 +69,16 @@ function createDuck(){
   body.appendChild(newDuck)
   newDuck.addEventListener('mouseover', addShot)
   randomLocation(newDuck)
-  // setInterval(toggleFlap, 250, newDuck)
-  setInterval(moveDuck, 250, newDuck)
+  setInterval(toggleFlap, 250, newDuck)
+  setInterval(moveDuck, 1500, newDuck)
   return newDuck
 }
-function addShot(){
-  this.classList.add("shot")
-  let duck = this
-  setTimeout(function(){duck.classList.remove("duck")},1500)
-}
+
 
 
   // 7. Now, let's create lots of ducks!  Use a "for" loop to create 5 ducks
   //    using our fancy new createDuck() function
-for (i=0; i<5; i++){ createDuck()}
+for (i=0; i<5; i++){createDuck()}
 
 
 // ducks = document.querySelectorAll('.duck')
@@ -91,17 +90,23 @@ for (i=0; i<5; i++){ createDuck()}
 // }
 function checkForWinner(){
   let stillDucks = document.querySelectorAll('.duck')
-  console.log(stillDucks)
-  if (stillDucks.length==0){
-      console.log('winner!')
-  }
-  else{
+  if (stillDucks.length !=0){
     console.log('still ducks')
   }
+  else{
+      confirm('winner!')
+  }
+  console.log(stillDucks)
 }
-setInterval(checkForWinner, 200)
+function addShot(){
+  this.classList.add("shot")
+  let duck = this
+  setTimeout(function(){duck.classList.remove("duck")},1000)
+  setTimeout(checkForWinner,1000)
+}
 
 
+// setInterval(checkForWinner, 200)
 setInterval(moveDuck, 250, newDuck)
 // };
 
